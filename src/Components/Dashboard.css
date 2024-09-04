@@ -1,0 +1,29 @@
+/* src/components/Dashboard.css */
+.chart-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap if necessary */
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding and borders are included in the width calculation */
+}
+
+.chart-item {
+    flex: 1 1 33%; /* Each chart item takes up approximately 33% of the container width */
+    margin: 0 10px;
+    box-sizing: border-box; /* Ensures padding and borders are included in the width calculation */
+}
+
+.chart-item h3 {
+    text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .chart-item {
+        flex: 1 1 50%; /* Stacks items in two columns on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .chart-item {
+        flex: 1 1 100%; /* Stacks items vertically on smaller screens */
+    }
+}
