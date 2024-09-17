@@ -1,4 +1,3 @@
-// src/components/Dashboard.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
@@ -12,6 +11,7 @@ const Dashboard = () => {
   const [postMigrationData, setPostMigrationData] = useState([]);
   const [comparisonData, setComparisonData] = useState([]);
   const [postMigrationStatusData, setPostMigrationStatusData] = useState([]);
+  const [activeChart, setActiveChart] = useState('Home'); // State for managing the active chart view
 
   useEffect(() => {
     // Fetch subsrptn_id data from the API
@@ -19,7 +19,7 @@ const Dashboard = () => {
       try {
         const response = await axios.get('http://localhost:3000/');
         const count = response.data[0].count;
-        setSubsrptnData([{ name: 'Subsrptn ID Count', value: parseInt(count, 10) }]);
+        setSubsrptnData([{ name: 'Bi feed data', value: parseInt(count, 10) }]);
       } catch (error) {
         console.error('Error fetching subsrptn_id data:', error.message);
       }
@@ -107,109 +107,130 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2>Dashboard</h2>
+      
+
+      {/* Horizontal Navigation Bar */}
+      <div className="nav-bar">
+        <button onClick={() => setActiveChart('Home')}>Home</button>
+        <button onClick={() => setActiveChart('BiFeed')}>Bi feed</button>
+        <button onClick={() => setActiveChart('OcsStatus')}>OCS Status</button>
+        <button onClick={() => setActiveChart('NokiaNetwork')}>Nokia Network</button>
+        <button onClick={() => setActiveChart('NetworkSwitch')}>Nokia Switch</button>
+        <button onClick={() => setActiveChart('PostMigration')}>Post Migration</button>
+      </div>
 
       <div className="chart-container">
-        <div className="chart-item">
-          <h3>Bi feed Data</h3>
-          {subsrptnData.length > 0 ? (
-            <BarChart width={600} height={300} data={subsrptnData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="value" fill="#8884d8" />
-            </BarChart>
-          ) : (
-            <p>Loading subsrptn ID data...</p>
-          )}
-        </div>
+        {/* Conditional Rendering based on activeChart */}
+        {(activeChart === 'Home' || activeChart === 'BiFeed') && (
+          <div className="chart-item">
+            <h3>Bi feed Data</h3>
+            {subsrptnData.length > 0 ? (
+              <BarChart width={600} height={300} data={subsrptnData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="value" fill="#8884d8" />
+              </BarChart>
+            ) : (
+              <p>Loading subsrptn ID data...</p>
+            )}
+          </div>
+        )}
 
-        <div className="chart-item">
-          <h3>OCS Status Data</h3>
-          {ocsStatusData.length > 0 ? (
-            <BarChart width={600} height={300} data={ocsStatusData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="value" name="OCS Status" fill="#82ca9d" />
-            </BarChart>
-          ) : (
-            <p>Loading OCS status data...</p>
-          )}
-        </div>
+        {(activeChart === 'Home' || activeChart === 'OcsStatus') && (
+          <div className="chart-item">
+            <h3>OCS Status Data</h3>
+            {ocsStatusData.length > 0 ? (
+              <BarChart width={600} height={300} data={ocsStatusData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="value" name="OCS Status" fill="#82ca9d" />
+              </BarChart>
+            ) : (
+              <p>Loading OCS status data...</p>
+            )}
+          </div>
+        )}
 
-        <div className="chart-item">
-          <h3>Nokia Network Status</h3>
-          {nokiaNetworkData.length > 0 ? (
-            <BarChart width={600} height={300} data={nokiaNetworkData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="value" name="Nokia Network Status" fill="#FF0000" />
-            </BarChart>
-          ) : (
-            <p>Loading Nokia Network data...</p>
-          )}
-        </div>
+        {(activeChart === 'Home' || activeChart === 'NokiaNetwork') && (
+          <div className="chart-item">
+            <h3>Nokia Network Status</h3>
+            {nokiaNetworkData.length > 0 ? (
+              <BarChart width={600} height={300} data={nokiaNetworkData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="value" name="Nokia Network Status" fill="#FF0000" />
+              </BarChart>
+            ) : (
+              <p>Loading Nokia Network data...</p>
+            )}
+          </div>
+        )}
 
-        <div className="chart-item">
-          <h3>Network Switch Status</h3>
-          {networkSwitchData.length > 0 ? (
-            <BarChart width={600} height={300} data={networkSwitchData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="value" name="Network Switch Status" fill="#FF4500" />
-            </BarChart>
-          ) : (
-            <p>Loading Network Switch data...</p>
-          )}
-        </div>
+        {(activeChart === 'Home' || activeChart === 'NetworkSwitch') && (
+          <div className="chart-item">
+            <h3>Network Switch Status</h3>
+            {networkSwitchData.length > 0 ? (
+              <BarChart width={600} height={300} data={networkSwitchData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="value" name="Network Switch Status" fill="#FF4500" />
+              </BarChart>
+            ) : (
+              <p>Loading Network Switch data...</p>
+            )}
+          </div>
+        )}
 
-        <div className="chart-item">
-          <h3>Post Migration Status</h3>
-          {postMigrationStatusData.length > 0 ? (
-            <BarChart width={600} height={300} data={postMigrationStatusData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="value" name="Post Migration Status" fill="#4CAF50" />
-            </BarChart>
-          ) : (
-            <p>Loading Post Migration data...</p>
-          )}
-        </div>
+        {(activeChart === 'Home' || activeChart === 'PostMigration') && (
+          <div className="chart-item">
+            <h3>Post Migration Status</h3>
+            {postMigrationStatusData.length > 0 ? (
+              <BarChart width={600} height={300} data={postMigrationStatusData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="value" name="Post Migration Status" fill="#4CAF50" />
+              </BarChart>
+            ) : (
+              <p>Loading Post Migration data...</p>
+            )}
+          </div>
+        )}
 
-        <div className="chart-item">
-          <h3>Comparison of Subsrptn ID and Post Migration Data</h3>
-          {comparisonData.length > 0 ? (
-            <BarChart width={600} height={300} data={comparisonData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="value" name="Comparison Data" fill="#0377fc" /> {/* Updated color */}
-            </BarChart>
-          ) : (
-            <p>Loading comparison data...</p>
-          )}
-        </div>
+        {activeChart === 'Home' && (
+          <div className="chart-item">
+            <h3>Comparison of Subsrptn ID and Post Migration Data</h3>
+            {comparisonData.length > 0 ? (
+              <BarChart width={600} height={300} data={comparisonData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="value" fill="#8884d8" />
+              </BarChart>
+            ) : (
+              <p>Loading comparison data...</p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 export default Dashboard;
-
-

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Dashboard from './Components/Dashboard';
-import './App.css'; // Optional: Add your custom styles here
+import './App.css'; 
 
 function App() {
   return (

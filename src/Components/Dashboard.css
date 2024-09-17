@@ -1,29 +1,100 @@
-/* src/components/Dashboard.css */
-.chart-container {
+/* Styling for the navigation bar */
+.nav-bar {
     display: flex;
-    flex-wrap: wrap; /* Allows items to wrap if necessary */
-    width: 100%;
-    box-sizing: border-box; /* Ensures padding and borders are included in the width calculation */
+    justify-content: space-around;
+    background-color: #2c3e50; /* Dark blue-gray */
+    padding: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    flex-shrink: 0; /* Prevent shrinking */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
+.nav-bar button {
+    background-color: #3ce780; /* Vibrant red */
+    color: white; /* White text */
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.2s; /* Smooth hover transitions */
+}
+
+.nav-bar button:hover {
+    background-color: #2bc05a; /* Darker red on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.nav-bar button.active {
+    background-color: #2980b9; /* Vibrant blue for active button */
+}
+
+@media (max-width: 768px) {
+    .nav-bar {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .nav-bar button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+/* Styling for the chart container */
+.chart-container {
+    display: flex;
+    justify-content: center; /* Center the chart */
+    align-items: center;
+    height: 70vh; /* Ensure height is enough to center */
+    flex-wrap: wrap;
+    gap: 20px;
+    background-color: #ecf0f1; /* Light gray for the container background */
+    padding: 20px;
+    border-radius: 12px;
+}
+
+/* Individual chart styling */
 .chart-item {
-    flex: 1 1 33%; /* Each chart item takes up approximately 33% of the container width */
-    margin: 0 10px;
-    box-sizing: border-box; /* Ensures padding and borders are included in the width calculation */
+    background-color: #ffffff; /* White for chart background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    width: 600px; /* Adjust this width as needed */
+    max-width: 100%; /* Ensure responsive behavior */
+    transition: transform 0.2s ease; /* Add hover effect for charts */
+}
+
+.chart-item:hover {
+    transform: translateY(-5px); /* Subtle lift on hover */
 }
 
 .chart-item h3 {
     text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50; /* Dark blue-gray */
 }
 
-@media (max-width: 1024px) {
-    .chart-item {
-        flex: 1 1 50%; /* Stacks items in two columns on medium screens */
-    }
+.chart-item p {
+    text-align: center;
+    font-size: 16px;
+    color: #7f8c8d; /* Muted gray for text */
 }
 
-@media (max-width: 768px) {
-    .chart-item {
-        flex: 1 1 100%; /* Stacks items vertically on smaller screens */
-    }
+/* Ensure the nav bar does not shrink when chart is displayed */
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #f5f7fa; /* Light background for the whole page */
+}
+
+.nav-bar {
+    flex-shrink: 0; /* Prevent shrinking of nav bar */
 }

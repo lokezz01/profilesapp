@@ -17,7 +17,7 @@ const pool = new Pool({
   port: 5432,
 });
 
-// Basic route for subsrptn_id data
+// Basic route for overall data
 app.get('/', async (req, res) => {
     try {
         const result = await pool.query('SELECT count(*) FROM circle.dailyfeed');
